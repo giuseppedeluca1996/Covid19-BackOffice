@@ -10,8 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -55,7 +54,7 @@ public class SpecificUserViewController {
     private Button deleteButton;
 
     @FXML
-    private LineChart<String, Integer> GraphicsLineChart;
+    private BarChart<String,Integer> reviewForMontChart;
 
     @FXML
     private Label starLabel;
@@ -71,6 +70,9 @@ public class SpecificUserViewController {
 
     @FXML
     private CategoryAxis xAxis;
+
+    @FXML
+    private NumberAxis yAxis;
 
     @FXML
     private Rating starUserRating;
@@ -116,6 +118,10 @@ public class SpecificUserViewController {
         //INIZIALIZZAZIONE DATI DIAGRAMMA
         monthNames.addAll(Arrays.asList(months));
         xAxis.setCategories(monthNames);
+        XYChart.Series<String,Integer> series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data<String,Integer>(monthNames.get(3),30));
+        series.getData().add(new XYChart.Data<String,Integer>(monthNames.get(5),5));
+        reviewForMontChart.getData().add(series);
         starUserRating.setRating(3.5);
 
 

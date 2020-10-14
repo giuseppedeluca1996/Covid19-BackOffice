@@ -1,5 +1,6 @@
 package com.covid19.view;
 
+import com.covid19.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.NumberAxis;
@@ -25,4 +26,7 @@ public class StatisticsViewController {
 
     @FXML
     private NumberAxis HigherRatingChart;
+
+    public void initData(User selectedItem) {
+    }
 }

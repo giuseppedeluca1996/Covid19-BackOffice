@@ -446,8 +446,63 @@ public class HomepageViewController extends Application {
         this.structurePageSize = structurePageSize;
     }
 
-    public void openStatistics(ActionEvent event) {
+    public void openStatisticsHotel(ActionEvent event) {
+        try {
 
-        System.out.println("APRE LE STATISTICHE");
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/StatisticsScreen.fxml"));
+            Stage stage = new Stage();
+            Parent userViewParent  = loader.load();
+            Scene userViewScene = new Scene(userViewParent);
+            stage.setScene(userViewScene);
+            StatisticsViewController controller = loader.getController();
+            //controller.initData() //todo PASSARE I VALORI PER CALCOLARE I RATING delle strutture cercare
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(searchTextField.getScene().getWindow());
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openStatisticsAttraction(ActionEvent event) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/StatisticsScreen.fxml"));
+            Stage stage = new Stage();
+            Parent userViewParent  = loader.load();
+            Scene userViewScene = new Scene(userViewParent);
+            stage.setScene(userViewScene);
+            StatisticsViewController controller = loader.getController();
+            //controller.initData() //todo PASSARE I VALORI PER CALCOLARE I RATING delle strutture cercare
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(searchTextField.getScene().getWindow());
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openStatisticsRestaurant(ActionEvent event) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/StatisticsScreen.fxml"));
+            Stage stage = new Stage();
+            Parent userViewParent  = loader.load();
+            Scene userViewScene = new Scene(userViewParent);
+            stage.setScene(userViewScene);
+            StatisticsViewController controller = loader.getController();
+            //controller.initData() //todo PASSARE I VALORI PER CALCOLARE I RATING delle strutture cercare
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(searchTextField.getScene().getWindow());
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
