@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.covid19.view.StatisticsViewController">
+   <children>
+      <Label alignment="CENTER" layoutX="426.0" layoutY="46.0" prefHeight="53.0" prefWidth="429.0" text="Statistics" AnchorPane.leftAnchor="426.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="top3Label" layoutX="69.0" layoutY="185.0" text="Top 3 of the month " AnchorPane.leftAnchor="70.0">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="higherNumberLabel" layoutX="498.0" layoutY="185.0" text="Higher number of review">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="higherRatingLabel" layoutX="736.0" layoutY="185.0" text="Higher rating" AnchorPane.rightAnchor="70.0">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <BarChart fx:id="top3Chart" layoutX="70.0" layoutY="274.0" prefHeight="223.0" prefWidth="284.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <PieChart fx:id="higherNumberChart" layoutX="503.0" layoutY="274.0" prefHeight="223.0" prefWidth="352.0" />
+      <BarChart layoutX="1017.0" layoutY="291.0" prefHeight="190.0" prefWidth="187.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="HigherRatingChart" side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>

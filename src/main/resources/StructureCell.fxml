@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.Rating?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1144.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="nameStructureLabel" layoutX="263.0" layoutY="20.0" prefHeight="36.0" prefWidth="336.0" text="Name Structure" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="AddressLabel" layoutX="645.0" layoutY="21.0" prefHeight="30.0" prefWidth="72.0" text="Address" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="StateLabel" layoutX="645.0" layoutY="71.0" prefHeight="30.0" prefWidth="48.0" text="State" AnchorPane.topAnchor="70.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="CityLabel" layoutX="649.0" layoutY="120.0" prefHeight="30.0" prefWidth="39.0" text="City" AnchorPane.topAnchor="120.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="ratingLabel" layoutX="263.0" layoutY="86.0" prefHeight="30.0" prefWidth="60.0" text="Rating" AnchorPane.topAnchor="120.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="structureImg" fitHeight="187.0" fitWidth="207.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="addressLabelValue" layoutX="743.0" layoutY="26.0" prefHeight="20.0" prefWidth="263.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="stateLabelValue" layoutX="743.0" layoutY="75.0" prefHeight="20.0" prefWidth="263.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="cityLabelValue" layoutX="743.0" layoutY="125.0" prefHeight="20.0" prefWidth="263.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Rating fx:id="starRating" layoutX="335.0" layoutY="119.0" mouseTransparent="true" partialRating="true" rating="0.0" />
+   </children>
+</AnchorPane>

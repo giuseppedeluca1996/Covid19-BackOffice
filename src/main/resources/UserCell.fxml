@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="200.0" prefWidth="1144.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="1144.0" style="-fx-border-color: #7c7a7a;">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="1144.0">
+               <children>
+                  <Label fx:id="usernameLabelValue" alignment="CENTER" layoutX="396.0" layoutY="14.0" prefHeight="30.0" prefWidth="320.0" text="Label" AnchorPane.leftAnchor="396.0" AnchorPane.rightAnchor="396.0" AnchorPane.topAnchor="14.0">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="emailLabel" layoutX="42.0" layoutY="73.0" prefHeight="27.0" prefWidth="49.0" text="Email" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nameLabel" layoutX="30.0" layoutY="87.0" prefHeight="27.0" prefWidth="55.0" text="Name" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="surnameLabel" layoutX="426.0" layoutY="90.0" prefHeight="27.0" prefWidth="77.0" text="Surname" AnchorPane.leftAnchor="426.0" AnchorPane.topAnchor="90.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="dateOfBirthLabel" prefHeight="27.0" prefWidth="110.0" text="Date of birth" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="130.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="genderLabel" prefHeight="27.0" prefWidth="62.0" text="Gender" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="170.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="isEnabledLabel" layoutX="426.0" layoutY="158.0" prefHeight="28.0" prefWidth="62.0" text="Active" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="426.0" AnchorPane.topAnchor="170.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="deleteUserImg" fitHeight="27.0" fitWidth="34.0" layoutX="1101.0" layoutY="157.0" onMouseClicked="#deleteUser" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@delete-user.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="emailLabelValue" layoutX="174.0" layoutY="54.0" prefHeight="20.0" prefWidth="274.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nameLabelValue" layoutX="174.0" layoutY="94.0" prefHeight="18.0" prefWidth="188.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="dateOfBirthLabelValue" layoutX="174.0" layoutY="134.0" prefHeight="18.0" prefWidth="188.0" text="Label" AnchorPane.leftAnchor="174.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="genderLabelValue" layoutX="174.0" layoutY="175.0" prefHeight="18.0" prefWidth="188.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="surnameLabelValue" layoutX="549.0" layoutY="94.0" prefHeight="18.0" prefWidth="188.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="isEnabledLabelValue" layoutX="549.0" layoutY="175.0" prefHeight="18.0" prefWidth="188.0" text="Label" AnchorPane.topAnchor="175.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
