@@ -14,6 +14,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.controlsfx.control.Rating;
 
 
@@ -80,7 +81,7 @@ public class SpecificUserViewController {
 
 
     private User selectedUser;
-
+    private Stage homepageStage;
     private ObservableList<String> monthNames = FXCollections.observableArrayList();
     private String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
 
@@ -103,11 +104,17 @@ public class SpecificUserViewController {
             genderComboBox.setValue(Gender.FEMALE.toString());
         } else {
             genderComboBox.setValue(Gender.MALE.toString());
+
         }
 
         ObservableList<String> listState = FXCollections.observableArrayList();
         listState.addAll("TRUE","FALSE");
         stateComboBox.setItems(listState);
+        if(selectedUser.getEnabled() ){
+            stateComboBox.setValue("TRUE");
+        }else{
+            stateComboBox.setValue("FALSE");
+        }
 
         stateComboBox.setValue(selectedUser.getEnabled().toString());
 

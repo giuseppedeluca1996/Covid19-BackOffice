@@ -88,12 +88,12 @@
          </image>
       </ImageView>
       <BarChart fx:id="reviewForMontChart" layoutX="67.0" layoutY="383.0" prefHeight="255.0" prefWidth="1115.0">
-         <xAxis>
-            <CategoryAxis label="Numbers of reviews in selected year" side="BOTTOM" fx:id="xAxis" />
-         </xAxis>
-         <yAxis>
-            <NumberAxis fx:id="yAxis" side="LEFT" />
-         </yAxis>
+        <xAxis>
+          <CategoryAxis label="Numbers of reviews in each Year" side="BOTTOM" fx:id="xAxis" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxis" side="LEFT" />
+        </yAxis>
       </BarChart>
    </children>
 </AnchorPane>

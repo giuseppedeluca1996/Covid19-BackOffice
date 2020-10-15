@@ -60,7 +60,7 @@
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets></ListView>
-                              <Button fx:id="generateStatisticsHotelButton" onAction="#openStatistics" layoutX="496.0" layoutY="586.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="138.0" style="-fx-background-color: #1589ff;" text="Generate Statistics" textFill="WHITE" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="496.0">
+                              <Button fx:id="generateStatisticsHotelButton" onAction="#openStatisticsHotel" layoutX="496.0" layoutY="586.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="138.0" style="-fx-background-color: #1589ff;" text="Generate Statistics" textFill="WHITE" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="496.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Button>
@@ -68,12 +68,12 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab id="restaurantTab" fx:id="restaurantTab" onSelectionChanged="#restaurantTabPressed" style="-fx-background-color: #1589ff; -fx-text-base-color: #ffffff;" text="Resturant">
+                <Tab id="restaurantTab" fx:id="restaurantTab" onSelectionChanged="#restaurantTabPressed" style="-fx-background-color: #1589ff; -fx-text-base-color: #ffffff;" text="Restaurant">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="660.0" prefWidth="1170.0">
                            <children>
                               <ListView fx:id="restaurantList" onScroll="#onScrollListRestaurantView" prefHeight="630.0" prefWidth="1170.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                              <Button fx:id="generateStatisticsRestaurantButton" layoutX="496.0" layoutY="586.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="184.0" style="-fx-background-color: #1589ff;" text="Generate Statistics" textFill="WHITE" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="496.0">
+                              <Button fx:id="generateStatisticsRestaurantButton" onAction="#openStatisticsRestaurant" layoutX="496.0" layoutY="586.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="184.0" style="-fx-background-color: #1589ff;" text="Generate Statistics" textFill="WHITE" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="496.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Button>
@@ -86,7 +86,7 @@
                       <AnchorPane prefHeight="660.0" prefWidth="1170.0" style="-fx-background-color: #ffffff;">
                            <children>
                               <ListView fx:id="attractionList" onScroll="#onScrollListAttractionView" prefHeight="630.0" prefWidth="1170.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                              <Button fx:id="generateStatisticAttractionButton" layoutX="496.0" layoutY="586.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="184.0" style="-fx-background-color: #1589ff;" text="Generate Statistics" textFill="WHITE" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="496.0">
+                              <Button fx:id="generateStatisticAttractionButton"  onAction="#openStatisticsAttraction" layoutX="496.0" layoutY="586.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="184.0" style="-fx-background-color: #1589ff;" text="Generate Statistics" textFill="WHITE" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="496.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Button>
