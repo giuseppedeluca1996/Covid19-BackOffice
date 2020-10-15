@@ -3,6 +3,7 @@ import com.covid19.dao.DaoFactory;
 import com.covid19.dao.ReviewDao;
 import com.covid19.dao.StructureDao;
 import com.covid19.dao.UserDao;
+import com.covid19.model.AvgRatingReviewOfUser;
 import com.covid19.model.Structure;
 import com.covid19.model.User;
 import com.covid19.view.HomepageViewController;
@@ -76,9 +77,39 @@ public class HomepageController {
     }
 
 
-    public static Double getAverageOfReviews(Structure structure){
-        return reviewDao.getAverageOfReview(structure);
+    public static Double getAverageOfReviewsStructure(Integer idStructure){
+        return reviewDao.getAverageOfReviewStructure(idStructure);
     }
+
+    public static Integer getNumberOfUserReviewsById(Integer idUser){
+        return reviewDao.getNumberOfUserReviewsById(idUser);
+    }
+
+    public static Integer getNumberOfUserReviewsByEmail(String email){
+        return reviewDao.getNumberOfUserReviewsByEmail(email);
+    }
+
+    public static Integer getNumberOfUserReviewsByUsername(String username){
+        return reviewDao.getNumberOfUserReviewsByUsername(username);
+    }
+
+    public static Double getAverageOfReviewsUserById(Integer idUser){
+        return reviewDao.getAverageOfReviewUserById(idUser);
+    }
+
+    public static Double getAverageOfReviewsUserByEmail(String email){
+        return reviewDao.getAverageOfReviewUserByEmail(email);
+    }
+
+    public static Double getAverageOfReviewsUserByUsername(String usernme){
+        return reviewDao.getAverageOfReviewUserByUsername(usernme);
+    }
+
+    public static List<AvgRatingReviewOfUser> getAverageOfReviewsUserInYear(Integer id, Integer year){
+        return reviewDao.getAverageOfReviewUserInYear(id,year);
+    }
+
+
 
     public static HomepageViewController getHomepageViewController() {
         return homepageViewController;

@@ -1,22 +1,21 @@
 package com.covid19.view;
 import com.covid19.controller.HomepageController;
+import com.covid19.model.AvgRatingReviewOfUser;
 import com.covid19.model.Gender;
 import com.covid19.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import org.controlsfx.control.Rating;
+
 
 import java.io.IOException;
 import java.text.DateFormatSymbols;
@@ -25,6 +24,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -55,7 +55,7 @@ public class SpecificUserViewController {
     private Button deleteButton;
 
     @FXML
-    private LineChart<String, Integer> GraphicsLineChart;
+    private BarChart<String,Double> reviewForMontChart;
 
     @FXML
     private Label starLabel;
@@ -80,45 +80,49 @@ public class SpecificUserViewController {
 
 
     private User selectedUser;
-    private Stage homepageStage;
+
     private ObservableList<String> monthNames = FXCollections.observableArrayList();
-    String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
+    private String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
 
 
 
     public void initData(User user){
+
         selectedUser = user;
+
         usernameTextField.setText(selectedUser.getUsername());
         nameTextField.setText(selectedUser.getName());
         surnameTextFiled.setText(selectedUser.getSurname());
         emailTextField.setText(selectedUser.getEmail());
         dateOfBirthPicker.setValue(selectedUser.getDateOfBirth().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
         ObservableList<String> listGender = FXCollections.observableArrayList();
         listGender.addAll(Gender.FEMALE.toString(),Gender.MALE.toString());
         genderComboBox.setItems(listGender);
-        if(selectedUser.getGender()==Gender.FEMALE){
+        if ((selectedUser.getGender() == Gender.FEMALE)) {
             genderComboBox.setValue(Gender.FEMALE.toString());
-        }else{
+        } else {
             genderComboBox.setValue(Gender.MALE.toString());
-
         }
-        stateComboBox.setValue(selectedUser.getEnabled().toString());
+
         ObservableList<String> listState = FXCollections.observableArrayList();
         listState.addAll("TRUE","FALSE");
         stateComboBox.setItems(listState);
-        if(selectedUser.getEnabled() ){
-            stateComboBox.setValue("TRUE");
-        }else{
-            stateComboBox.setValue("FALSE");
-        }
+
+        stateComboBox.setValue(selectedUser.getEnabled().toString());
 
 
-        //INIZIALIZZAZIONE DATI DIAGRAMMA
+        List<AvgRatingReviewOfUser> averageOfReviewUserInYear=HomepageController.getAverageOfReviewsUserInYear(user.getId(), LocalDate.now().getYear() );
         monthNames.addAll(Arrays.asList(months));
         xAxis.setCategories(monthNames);
-        starUserRating.setRating(3.5);
+        XYChart.Series<String,Double> series = new XYChart.Series<>();
+        for (AvgRatingReviewOfUser a : averageOfReviewUserInYear){
+            series.getData().add(new XYChart.Data<String,Double>(monthNames.get(a.getMonth()),a.getAvgRating()));
+        }
+        reviewForMontChart.getData().add(series);
 
-
+        starUserRating.setRating(HomepageController.getAverageOfReviewsUserByEmail(user.getEmail()));
+        numberReviewLabel.setText(HomepageController.getNumberOfUserReviewsByEmail(user.getEmail()).toString());
 
     }
 

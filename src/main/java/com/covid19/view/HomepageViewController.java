@@ -214,10 +214,10 @@ public class HomepageViewController extends Application {
                 structureObservableList.clear();
                 Map<String, Object> map;
                 if(searchTextField.getText().isEmpty()){
-                    map = HomepageController.getAllHotel(indexUserPage, userPageSize);
+                    map = HomepageController.getAllHotel(indexStructurePage, structurePageSize);
                     nextQueryStructureIsValid=false;
                 }else  {
-                    map = HomepageController.getAllHotelByText(indexUserPage, userPageSize, searchTextField.getText());
+                    map = HomepageController.getAllHotelByText(indexStructurePage, structurePageSize, searchTextField.getText());
                     nextQueryStructureIsValid=true;
                 }
                 structures = (Collection<Structure>) (map.get("collectionItems"));
@@ -225,7 +225,7 @@ public class HomepageViewController extends Application {
                 numberOfViewStructure=(Integer)map.get("sizeCollectionItems");
                 if(structures !=null) {
                     for(Structure s : structures){
-                        s.setAverageRating(HomepageController.getAverageOfReviews(s));
+                        s.setAverageRating(HomepageController.getAverageOfReviewsStructure(s.getId()));
                     }
                     structureObservableList.addAll(structures);
                     searchIsEmptyLabel.setVisible(false);
@@ -255,7 +255,7 @@ public class HomepageViewController extends Application {
             numberOfViewStructure=(Integer)map.get("sizeCollectionItems");
             if(structures !=null) {
                 for(Structure s : structures){
-                    s.setAverageRating(HomepageController.getAverageOfReviews(s));
+                    s.setAverageRating(HomepageController.getAverageOfReviewsStructure(s.getId()));
                 }
                 structureObservableList.addAll(structures);
                 searchIsEmptyLabel.setVisible(false);
@@ -285,7 +285,7 @@ public class HomepageViewController extends Application {
             numberOfViewStructure=(Integer)map.get("sizeCollectionItems");
             if(structures !=null){
                 for(Structure s : structures){
-                    s.setAverageRating(HomepageController.getAverageOfReviews(s));
+                    s.setAverageRating(HomepageController.getAverageOfReviewsStructure(s.getId()));
                 }
                 structureObservableList.addAll(structures);
                 searchIsEmptyLabel.setVisible(false);
@@ -362,7 +362,7 @@ public class HomepageViewController extends Application {
             }
             structures = (Collection<Structure>) (map.get("collectionItems"));
             for(Structure s : structures){
-                s.setAverageRating(HomepageController.getAverageOfReviews(s));
+                s.setAverageRating(HomepageController.getAverageOfReviewsStructure(s.getId()));
             }
             numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
             if(!structures.isEmpty())
@@ -383,7 +383,7 @@ public class HomepageViewController extends Application {
             }
             structures = (Collection<Structure>) (map.get("collectionItems"));
             for(Structure s : structures){
-                s.setAverageRating(HomepageController.getAverageOfReviews(s));
+                s.setAverageRating(HomepageController.getAverageOfReviewsStructure(s.getId()));
             }
             numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
             if(!structures.isEmpty())
@@ -404,7 +404,7 @@ public class HomepageViewController extends Application {
             }
             structures = (Collection<Structure>) (map.get("collectionItems"));
             for(Structure s : structures){
-                s.setAverageRating(HomepageController.getAverageOfReviews(s));
+                s.setAverageRating(HomepageController.getAverageOfReviewsStructure(s.getId()));
             }
             numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
             if(!structures.isEmpty())

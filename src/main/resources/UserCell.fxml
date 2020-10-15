@@ -43,7 +43,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="isEnabledLabel" layoutX="426.0" layoutY="158.0" prefHeight="28.0" prefWidth="62.0" text="Active" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="426.0" AnchorPane.topAnchor="170.0">
+                  <Label fx:id="isEnabledLabel" layoutX="426.0" layoutY="158.0" prefHeight="28.0" prefWidth="62.0" text="State" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="426.0" AnchorPane.topAnchor="170.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

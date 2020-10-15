@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 @Data
 public class User {
 
+    private Integer id;
     private String username;
     private String email;
     private String name;
