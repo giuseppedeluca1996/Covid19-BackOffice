@@ -3,8 +3,6 @@ package com.covid19.dao.impl;
 import com.covid19.dao.StructureDao;
 import com.covid19.model.HttpRequest;
 import com.covid19.model.Structure;
-import com.covid19.model.User;
-import com.covid19.security.AuthManagerFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -18,7 +16,6 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class SpringStructureDao extends StructureDao {
 
@@ -45,13 +42,19 @@ public class SpringStructureDao extends StructureDao {
     }
 
     @Override
-    public void update(Structure newEntity, Integer id) {
+    public Structure update(Structure newEntity, Integer id) {
+
+        return null;
+    }
+
+    @Override
+    public void delete(Integer id) {
 
     }
 
     @Override
-    public void delete(Structure entity) {
-
+    public Structure getById(Integer id) {
+        return null;
     }
 
     @Override
@@ -244,8 +247,4 @@ public class SpringStructureDao extends StructureDao {
         return map;
     }
 
-    @Override
-    public Structure getById(Integer id) {
-        return null;
-    }
 }

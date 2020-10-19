@@ -10,10 +10,13 @@ public abstract class StructureDao implements AbstractDao<Structure> {
     public abstract void save(Structure entity);
 
     @Override
-    public abstract void update(Structure newEntity, Integer id);
+    public abstract Structure update(Structure newEntity, Integer id);
 
     @Override
-    public abstract void delete(Structure entity);
+    public abstract void delete(Integer id);
+
+    @Override
+    public abstract Structure getById(Integer id);
 
     @Override
     public abstract Map<String, Object> getAll(Integer page, Integer size);
@@ -30,6 +33,5 @@ public abstract class StructureDao implements AbstractDao<Structure> {
 
     public abstract Map<String, Object> getAllAttractionByText(Integer page, Integer size, String text);
 
-    @Override
-    public abstract Structure getById(Integer id);
+
 }

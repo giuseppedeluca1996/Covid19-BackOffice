@@ -25,7 +25,6 @@ public class SignInViewController extends Application {
     @FXML
     public void initialize(){
         signInButton.setDefaultButton(true);
-        SignInController.setSignInViewController(this);
     }
 
     @Override

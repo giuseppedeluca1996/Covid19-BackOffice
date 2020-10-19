@@ -8,4 +8,5 @@ public class JwtAuthManagerFactory extends AuthManagerFactory{
     public AuthManager getAuthManager() {
         return JwtAuthManager.getInstance();
     }
+
 }

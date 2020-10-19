@@ -36,42 +36,18 @@ public class SpringUserDao extends UserDao {
         return instance;
     }
 
-
     @Override
     public void save(User entity) {
 
     }
 
     @Override
-    public void update(User newEntity, Integer id) {
-
-    }
-
-    public User updateByEmail(User newEntity, String email){
-
+    public User update(User newEntity, Integer id) {
         User updateUser=null;
 
         String userJson= gson.toJson(newEntity);
         try {
-            HttpResponse<String> response= httpRequest.requestPut("/user/updateUser?email=" + email,userJson, true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
-            if(response.statusCode()==200){
-                updateUser=gson.fromJson(response.body(), new TypeToken<User>() {}.getType());
-            }
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return updateUser;
-
-    }
-
-    public User updateByUsername(User newEntity, String username){
-
-        User updateUser=null;
-
-        String userJson= gson.toJson(newEntity);
-        try {
-            HttpResponse<String> response= httpRequest.requestPut("/user/updateUser?username=" + username,userJson, true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
+            HttpResponse<String> response= httpRequest.requestPut("/user/updateUser?userid=" + id,userJson, true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
             if(response.statusCode()==200){
                 updateUser=gson.fromJson(response.body(), new TypeToken<User>() {}.getType());
             }
@@ -82,29 +58,18 @@ public class SpringUserDao extends UserDao {
         return updateUser;
     }
 
-
     @Override
-    public void delete(User entity) {
-
-    }
-
-
-    @Override
-    public void deleteByEmail(String email) {
+    public void delete(Integer id) {
         try {
-            HttpResponse<String> response= httpRequest.requestDelete("/user/deleteUser?email=" + email, true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
+            HttpResponse<String> response= httpRequest.requestDelete("/user/deleteUser?userid=" + id, true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void deleteByUsername(String username) {
-        try {
-            HttpResponse<String> response= httpRequest.requestDelete("/user/deleteUser?username=" + username, true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
+    public User getById(Integer id) {
+        return null;
     }
 
     @Override
@@ -161,20 +126,6 @@ public class SpringUserDao extends UserDao {
         return map;
     }
 
-    @Override
-    public User getById(Integer id) {
-        return null;
-    }
-
-    @Override
-    public User getByUsername(String username) {
-        return null;
-    }
-
-    @Override
-    public User getByEmail(String email) {
-        return null;
-    }
 
 
 }

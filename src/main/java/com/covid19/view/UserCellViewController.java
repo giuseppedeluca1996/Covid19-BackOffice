@@ -89,7 +89,7 @@ public class UserCellViewController extends ListCell<User>  {
     @FXML
     void deleteUser(MouseEvent event) {
         if(PopUpDialog.showPopUpWarning("Delete user!", "You are sure to delete this user?")){
-            HomepageController.deleteUserByEmail(user);
+            HomepageController.deleteUser(user);
         }
 
 

@@ -19,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -71,8 +72,8 @@ public class HomepageViewController extends Application {
 
     ObservableList<User> userObservableList = FXCollections.observableArrayList();
     ObservableList<Structure> structureObservableList = FXCollections.observableArrayList();
-    private static Collection<User> users;
-    private static Collection<Structure> structures;
+    private final static Collection<User> users=new ArrayList<>();
+    private final static Collection<Structure> structures= new ArrayList<>();
 
 
     private int indexUserPage = 0;
@@ -98,7 +99,7 @@ public class HomepageViewController extends Application {
         searchIsEmptyLabel.setVisible(false);
 
         Map<String, Object> map = HomepageController.getAllUser(indexUserPage,userPageSize);
-        users= (Collection<User>)(map.get("collectionItems"));
+        users.addAll((Collection<User>)(map.get("collectionItems")));
         numberOfTotalUser=(Integer)map.get("numberOfTotalItems");
         numberOfViewUser=(Integer)map.get("sizeCollectionItems");
         nextQueryUserIsValid=true;
@@ -140,7 +141,7 @@ public class HomepageViewController extends Application {
             userObservableList.clear();
 
             Map<String, Object> map = HomepageController.getAllUser(indexUserPage, userPageSize);
-            users = (Collection<User>) (map.get("collectionItems"));
+            users.addAll((Collection<User>) (map.get("collectionItems")));
             numberOfTotalUser = (Integer) map.get("numberOfTotalItems");
             numberOfViewUser = (Integer) map.get("sizeCollectionItems");
             nextQueryUserIsValid=false;
@@ -182,23 +183,10 @@ public class HomepageViewController extends Application {
 
         if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
             if(mouseEvent.getClickCount() == 2) {
-                try {
-
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/UserView.fxml"));
-                    Stage stage = new Stage();
-                    Parent userViewParent  = loader.load();
-                    Scene userViewScene = new Scene(userViewParent);
-                    stage.setScene(userViewScene);
-                    SpecificUserViewController controller = loader.getController();
-                    controller.initData(userList.getSelectionModel().getSelectedItem());
-                    stage.initModality(Modality.WINDOW_MODAL);
-                    stage.initOwner(searchTextField.getScene().getWindow());
-                    stage.showAndWait();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Stage stage = new Stage();
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(searchTextField.getScene().getWindow());
+                HomepageController.showSpecificUserView(stage, userList.getSelectionModel().getSelectedItem());
             }
         }
     }
@@ -220,12 +208,12 @@ public class HomepageViewController extends Application {
                     map = HomepageController.getAllHotelByText(indexStructurePage, structurePageSize, searchTextField.getText());
                     nextQueryStructureIsValid=true;
                 }
-                structures = (Collection<Structure>) (map.get("collectionItems"));
+                structures.addAll((Collection<Structure>) (map.get("collectionItems")));
                 numberOfTotalStructure=(Integer)map.get("numberOfTotalItems");
                 numberOfViewStructure=(Integer)map.get("sizeCollectionItems");
                 if(structures !=null) {
                     for(Structure s : structures){
-                        s.setAverageRating(HomepageController.getAverageOfReviewsStructure(s.getId()));
+                        s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
                     }
                     structureObservableList.addAll(structures);
                     searchIsEmptyLabel.setVisible(false);
@@ -250,12 +238,12 @@ public class HomepageViewController extends Application {
                 map = HomepageController.getAllRestaurantByText(indexStructurePage, structurePageSize, searchTextField.getText());
                 nextQueryStructureIsValid=true;
             }
-            structures = (Collection<Structure>) (map.get("collectionItems"));
+            structures.addAll((Collection<Structure>) (map.get("collectionItems")));
             numberOfTotalStructure=(Integer)map.get("numberOfTotalItems");
             numberOfViewStructure=(Integer)map.get("sizeCollectionItems");
             if(structures !=null) {
                 for(Structure s : structures){
-                    s.setAverageRating(HomepageController.getAverageOfReviewsStructure(s.getId()));
+                    s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
                 }
                 structureObservableList.addAll(structures);
                 searchIsEmptyLabel.setVisible(false);
@@ -280,12 +268,12 @@ public class HomepageViewController extends Application {
                 map = HomepageController.getAllAttractionByText(indexStructurePage, structurePageSize, searchTextField.getText());
                 nextQueryStructureIsValid=true;
             }
-            structures = (Collection<Structure>) (map.get("collectionItems"));
+            structures.addAll((Collection<Structure>) (map.get("collectionItems")));
             numberOfTotalStructure=(Integer)map.get("numberOfTotalItems");
             numberOfViewStructure=(Integer)map.get("sizeCollectionItems");
             if(structures !=null){
                 for(Structure s : structures){
-                    s.setAverageRating(HomepageController.getAverageOfReviewsStructure(s.getId()));
+                    s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
                 }
                 structureObservableList.addAll(structures);
                 searchIsEmptyLabel.setVisible(false);
@@ -312,7 +300,7 @@ public class HomepageViewController extends Application {
                     map = HomepageController.getAllUserByText(indexUserPage, userPageSize,searchTextField.getText());
                     nextQueryUserIsValid=true;
                 }
-                users = (Collection<User>) (map.get("collectionItems"));
+                users.addAll((Collection<User>) (map.get("collectionItems")));
                 numberOfTotalUser = (Integer) map.get("numberOfTotalItems");
                 numberOfViewUser = (Integer) map.get("sizeCollectionItems");
 
@@ -343,7 +331,7 @@ public class HomepageViewController extends Application {
             }else {
                 map=HomepageController.getAllUserByText(++indexUserPage,userPageSize, searchTextField.getText());
             }
-            users= (Collection<User>)(map.get("collectionItems"));
+            users.addAll((Collection<User>)(map.get("collectionItems")));
             numberOfViewUser=numberOfViewUser+(Integer) map.get("sizeCollectionItems");
             if(!users.isEmpty())
                 userObservableList.addAll(users);
@@ -360,16 +348,15 @@ public class HomepageViewController extends Application {
             }else {
                 map = HomepageController.getAllHotelByText(++indexStructurePage, structurePageSize,searchTextField.getText());
             }
-            structures = (Collection<Structure>) (map.get("collectionItems"));
+            structures.addAll((Collection<Structure>) (map.get("collectionItems")));
             for(Structure s : structures){
-                s.setAverageRating(HomepageController.getAverageOfReviewsStructure(s.getId()));
+                s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
             }
             numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
             if(!structures.isEmpty())
                 structureObservableList.addAll(structures);
         }
     }
-
 
     public void onScrollListRestaurantView(ScrollEvent scrollEvent) {
 
@@ -381,16 +368,15 @@ public class HomepageViewController extends Application {
             }else {
                 map = HomepageController.getAllRestaurantByText(++indexStructurePage, structurePageSize,searchTextField.getText());
             }
-            structures = (Collection<Structure>) (map.get("collectionItems"));
+            structures.addAll((Collection<Structure>) (map.get("collectionItems")));
             for(Structure s : structures){
-                s.setAverageRating(HomepageController.getAverageOfReviewsStructure(s.getId()));
+                s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
             }
             numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
             if(!structures.isEmpty())
                 structureObservableList.addAll(structures);
         }
     }
-
 
     public void onScrollListAttractionView(ScrollEvent scrollEvent) {
 
@@ -402,9 +388,9 @@ public class HomepageViewController extends Application {
             }else {
                 map = HomepageController.getAllAttractionByText(++indexStructurePage, structurePageSize,searchTextField.getText());
             }
-            structures = (Collection<Structure>) (map.get("collectionItems"));
+            structures.addAll( (Collection<Structure>) (map.get("collectionItems")));
             for(Structure s : structures){
-                s.setAverageRating(HomepageController.getAverageOfReviewsStructure(s.getId()));
+                s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
             }
             numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
             if(!structures.isEmpty())
@@ -412,7 +398,6 @@ public class HomepageViewController extends Application {
         }
 
     }
-
 
     public ObservableList<User> getUserObservableList() {
         return userObservableList;
@@ -447,62 +432,74 @@ public class HomepageViewController extends Application {
     }
 
     public void openStatisticsHotel(ActionEvent event) {
-        try {
 
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/StatisticsScreen.fxml"));
-            Stage stage = new Stage();
-            Parent userViewParent  = loader.load();
-            Scene userViewScene = new Scene(userViewParent);
-            stage.setScene(userViewScene);
-            StatisticsViewController controller = loader.getController();
-            //controller.initData() //todo PASSARE I VALORI PER CALCOLARE I RATING delle strutture cercare
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(searchTextField.getScene().getWindow());
-            stage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(hotelTab.isSelected()){
+            if( numberOfViewStructure < numberOfTotalStructure){
+                Map<String, Object> map;
+                if(!nextQueryStructureIsValid){
+                    map = HomepageController.getAllHotel(++indexStructurePage, structurePageSize);
+                }else {
+                    map = HomepageController.getAllHotelByText(++indexStructurePage, structurePageSize,searchTextField.getText());
+                }
+                structures.addAll((Collection<Structure>) (map.get("collectionItems")));
+                for(Structure s : structures){
+                    s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
+                }
+                numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
+                if(!structures.isEmpty())
+                    structureObservableList.addAll(structures);
+            }
+        }else if(restaurantTab.isSelected()){
+            if( numberOfViewStructure < numberOfTotalStructure){
+                Map<String, Object> map;
+                if(!nextQueryStructureIsValid){
+                    map = HomepageController.getAllRestaurant(++indexStructurePage, structurePageSize);
+                }else {
+                    map = HomepageController.getAllRestaurantByText(++indexStructurePage, structurePageSize,searchTextField.getText());
+                }
+                structures.addAll((Collection<Structure>) (map.get("collectionItems")));
+                for(Structure s : structures){
+                    s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
+                }
+                numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
+                if(!structures.isEmpty())
+                    structureObservableList.addAll(structures);
+            }
+        }else {
+            if( numberOfViewStructure < numberOfTotalStructure){
+                Map<String, Object> map;
+                if(!nextQueryStructureIsValid){
+                    map = HomepageController.getAllAttraction(++indexStructurePage, structurePageSize);
+                }else {
+                    map = HomepageController.getAllAttractionByText(++indexStructurePage, structurePageSize,searchTextField.getText());
+                }
+                structures.addAll( (Collection<Structure>) (map.get("collectionItems")));
+                for(Structure s : structures){
+                    s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
+                }
+                numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
+                if(!structures.isEmpty())
+                    structureObservableList.addAll(structures);
+            }
         }
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(searchTextField.getScene().getWindow());
+        HomepageController.showStatisticView(stage, structures);
     }
 
     public void openStatisticsAttraction(ActionEvent event) {
-        try {
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/StatisticsScreen.fxml"));
-            Stage stage = new Stage();
-            Parent userViewParent  = loader.load();
-            Scene userViewScene = new Scene(userViewParent);
-            stage.setScene(userViewScene);
-            StatisticsViewController controller = loader.getController();
-            //controller.initData() //todo PASSARE I VALORI PER CALCOLARE I RATING delle strutture cercare
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(searchTextField.getScene().getWindow());
-            stage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stage stage = new Stage();
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(searchTextField.getScene().getWindow());
+        HomepageController.showStatisticView(stage,structures);
     }
 
     public void openStatisticsRestaurant(ActionEvent event) {
-        try {
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/StatisticsScreen.fxml"));
-            Stage stage = new Stage();
-            Parent userViewParent  = loader.load();
-            Scene userViewScene = new Scene(userViewParent);
-            stage.setScene(userViewScene);
-            StatisticsViewController controller = loader.getController();
-            //controller.initData() //todo PASSARE I VALORI PER CALCOLARE I RATING delle strutture cercare
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(searchTextField.getScene().getWindow());
-            stage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stage stage = new Stage();
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(searchTextField.getScene().getWindow());
+        HomepageController.showStatisticView(stage,structures );
     }
 }

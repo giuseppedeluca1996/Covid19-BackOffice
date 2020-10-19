@@ -2,50 +2,36 @@
 
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.covid19.view.StatisticsViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" layoutX="426.0" layoutY="46.0" prefHeight="53.0" prefWidth="429.0" text="Statistics" AnchorPane.leftAnchor="426.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="50.0">
+      <Label alignment="CENTER" layoutX="426.0" layoutY="14.0" prefHeight="53.0" prefWidth="429.0" text="Statistics" AnchorPane.leftAnchor="426.0" AnchorPane.rightAnchor="426.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Label fx:id="top3Label" layoutX="69.0" layoutY="185.0" text="Top 3 of the month " AnchorPane.leftAnchor="70.0">
-         <font>
-            <Font size="32.0" />
-         </font>
-      </Label>
-      <Label fx:id="higherNumberLabel" layoutX="498.0" layoutY="185.0" text="Higher number of review">
-         <font>
-            <Font size="32.0" />
-         </font>
-      </Label>
-      <Label fx:id="higherRatingLabel" layoutX="736.0" layoutY="185.0" text="Higher rating" AnchorPane.rightAnchor="70.0">
-         <font>
-            <Font size="32.0" />
-         </font>
-      </Label>
-      <BarChart fx:id="top3Chart" layoutX="70.0" layoutY="274.0" prefHeight="223.0" prefWidth="284.0">
+      <PieChart fx:id="numberOfReviewPieChart" layoutX="730.0" layoutY="70.0" prefHeight="264.0" prefWidth="500.0" title="Number of review" AnchorPane.leftAnchor="730.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="70.0" />
+      <BarChart fx:id="topThreeOfYearBarChart" layoutX="63.0" layoutY="139.0" prefHeight="310.0" prefWidth="509.0" title="Top three of year" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="70.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis prefHeight="85.0" prefWidth="452.0" side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-      <PieChart fx:id="higherNumberChart" layoutX="503.0" layoutY="274.0" prefHeight="223.0" prefWidth="352.0" />
-      <BarChart layoutX="1017.0" layoutY="291.0" prefHeight="190.0" prefWidth="187.0">
+      <LineChart fx:id="avgLineChart" layoutX="64.0" layoutY="554.0" prefHeight="394.0" prefWidth="1180.0" title="Averge of structure in year" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="36.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis prefHeight="74.0" prefWidth="1123.0" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="HigherRatingChart" side="LEFT" />
+          <NumberAxis side="LEFT" />
         </yAxis>
-      </BarChart>
+      </LineChart>
    </children>
 </AnchorPane>

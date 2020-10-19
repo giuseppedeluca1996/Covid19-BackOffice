@@ -5,17 +5,13 @@ import com.covid19.security.AuthManager;
 import com.covid19.security.AuthManagerFactory;
 import com.covid19.view.HomepageViewController;
 import com.covid19.view.PopUpDialog;
-import com.covid19.view.SignInViewController;
 import javafx.stage.Stage;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SignInController {
-
-    private static SignInViewController signInViewController;
-
+public  class SignInController {
 
     public static boolean signInPress(String usernameOrEmail , String password ) {
 
@@ -54,10 +50,9 @@ public class SignInController {
          }
         showHomepage();
         return true;
-     }
+    }
 
-
-     private static void showHomepage(){
+    private static void showHomepage(){
          try {
              Stage stage = new Stage();
              new HomepageViewController().start(stage);
@@ -65,13 +60,5 @@ public class SignInController {
              e.printStackTrace();
          }
      }
-
-    public static SignInViewController getSignInViewController() {
-        return signInViewController;
-    }
-
-    public static void setSignInViewController(SignInViewController signInViewController) {
-        SignInController.signInViewController = signInViewController;
-    }
 
 }

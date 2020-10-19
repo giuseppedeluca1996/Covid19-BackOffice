@@ -1,10 +1,5 @@
 package com.covid19.security;
 
-import com.covid19.dao.AbstractDao;
-import com.covid19.dao.DaoFactory;
-import com.covid19.dao.SpringDaoFactory;
-import com.covid19.model.User;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,7 +7,6 @@ import java.util.Objects;
 import java.util.Properties;
 
  public abstract class AuthManagerFactory {
-
 
     static {
         FileReader reader= null;
@@ -31,21 +25,20 @@ import java.util.Properties;
 
         authManagerType=p.getProperty("authManager.type");
     }
+
     private static String authManagerType;
 
     public abstract AuthManager  getAuthManager();
 
     public static AuthManagerFactory getAuthManagerFactory(){
 
-        switch (authManagerType){
-            case "jwt" : {
+        switch (authManagerType) {
+            case "jwt" -> {
                 return new JwtAuthManagerFactory();
             }
-
-            default: {
+            default -> {
                 return null;
             }
-
         }
 
     }
@@ -57,4 +50,5 @@ import java.util.Properties;
     public static void setAuthManagerType(String authManagerType) {
         AuthManagerFactory.authManagerType = authManagerType;
     }
+
 }

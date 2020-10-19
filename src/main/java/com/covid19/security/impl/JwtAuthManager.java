@@ -12,10 +12,16 @@ import java.net.http.HttpResponse;
 public class JwtAuthManager implements AuthManager {
 
 
-    private final HttpRequest httpRequest= new HttpRequest();
+    private static final HttpRequest httpRequest= new HttpRequest();
 
     private static JwtAuthManager instance;
-    private JwtAuthManager(){}
+
+    private static String jwtToken=null;
+
+    private final  static Gson gsonConverter=new Gson();
+
+    private JwtAuthManager(){ }
+
     public static JwtAuthManager getInstance(){
         if(instance == null) {
             synchronized (JwtAuthManager.class) {
@@ -24,8 +30,6 @@ public class JwtAuthManager implements AuthManager {
         }
         return instance;
     }
-    private static String jwtToken=null;
-    private final  static Gson gsonConverter=new Gson();
 
 
     @Override
@@ -77,5 +81,10 @@ public class JwtAuthManager implements AuthManager {
     @Override
     public  String getAuthenticationString() {
         return jwtToken;
+    }
+
+    @Override
+    public void logOut() {
+        jwtToken=null;
     }
 }

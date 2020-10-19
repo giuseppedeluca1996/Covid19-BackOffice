@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.covid19.view.SpecificUserViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <TextField fx:id="surnameTextFiled" layoutX="615.0" layoutY="99.0" prefHeight="27.0" prefWidth="169.0" style="-fx-border-color: #c4bfbf;" AnchorPane.rightAnchor="489.0" AnchorPane.topAnchor="100.0" />
       <ComboBox fx:id="genderComboBox" layoutX="602.0" layoutY="146.0" prefHeight="27.0" prefWidth="169.0" style="-fx-border-color: #c4bfbf;" AnchorPane.rightAnchor="488.0" AnchorPane.topAnchor="150.0" />

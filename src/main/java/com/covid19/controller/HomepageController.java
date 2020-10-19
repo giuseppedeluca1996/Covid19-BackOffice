@@ -3,20 +3,40 @@ import com.covid19.dao.DaoFactory;
 import com.covid19.dao.ReviewDao;
 import com.covid19.dao.StructureDao;
 import com.covid19.dao.UserDao;
+import com.covid19.model.AvgRatingReviewOfStructure;
 import com.covid19.model.AvgRatingReviewOfUser;
 import com.covid19.model.Structure;
 import com.covid19.model.User;
 import com.covid19.view.HomepageViewController;
+import com.covid19.view.SpecificUserViewController;
+import com.covid19.view.StatisticsViewController;
+import com.sun.javafx.image.IntPixelGetter;
+import javafx.stage.Stage;
 
+import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class HomepageController {
 
     private static HomepageViewController homepageViewController;
 
     private static final UserDao userDao= Objects.requireNonNull(DaoFactory.getDaoFactory()).getUserDao();
+
     private static final StructureDao structureDao= Objects.requireNonNull(DaoFactory.getDaoFactory()).getStructureDao();
+
     private static final ReviewDao reviewDao= Objects.requireNonNull(DaoFactory.getDaoFactory()).getReviewDao();
+
+    public static void deleteUser(User user){
+        userDao.delete(user.getId());
+        homepageViewController.getUserObservableList().remove(user);
+    }
+
+    public static void updateUser(User newUser, Integer id){
+        User updatedUser = userDao.update(newUser, id);
+        homepageViewController.getUserObservableList().remove(updatedUser);
+        homepageViewController.getUserObservableList().add(updatedUser);
+    }
 
     public static Map<String,Object> getAllUser(Integer page, Integer size){
         return userDao.getAll(page, size);
@@ -26,8 +46,20 @@ public class HomepageController {
         return userDao.getAllByText(page, size, text);
     }
 
-    public static Map<String,Object> getAllStructure(Integer page, Integer size) {
-        return structureDao.getAll(page,size);
+    public static Integer getNumUserReview(Integer idUser){
+        return reviewDao.getNumUserReview(idUser);
+    }
+
+    public static Double getAvgUserReview(Integer idUser){
+        return reviewDao.getAvgUserReview(idUser);
+    }
+
+    public static List<AvgRatingReviewOfUser> getAvgUserReviewGroupByMonthInSpecificYear(Integer id, Integer year){
+        return reviewDao.getAvgUserReviewGroupByMonthInSpecificYear(id,year);
+    }
+
+    public static List<AvgRatingReviewOfStructure> getAvgStructureReviewGroupByMonthInSpecificYear(Integer id, Integer year){
+        return reviewDao.getAvgStructureReviewGroupByMonthInSpecificYear(id,year);
     }
 
     public static  Map<String,Object> getAllHotel(Integer page, Integer size) {
@@ -42,7 +74,6 @@ public class HomepageController {
         return structureDao.getAllAttraction(page,size);
     }
 
-
     public static Map<String, Object> getAllHotelByText(Integer page, Integer size, String text) {
         return  structureDao.getAllHotelByText(page,size,text);
     }
@@ -55,61 +86,86 @@ public class HomepageController {
         return  structureDao.getAllAttractionByText(page,size,text);
     }
 
-    public static void deleteUserByUsername(User user){
-       userDao.deleteByUsername(user.getUsername());
+    public static Double getAvgStructureReview(Integer idStructure){
+        return reviewDao.getAvgStructureReview(idStructure);
     }
 
-    public static void deleteUserByEmail(User user){
-        userDao.deleteByEmail(user.getEmail());
-        homepageViewController.getUserObservableList().remove(user);
+    public static Double getAvgStructureReview(Integer idStructure,Integer year){
+        return reviewDao.getAvgStructureReview(idStructure, year);
     }
 
-    public static void updateUserByUsername(User newUser, String username){
-        User updatedUser = userDao.updateByUsername(newUser, username);
-        homepageViewController.getUserObservableList().remove(updatedUser);
-        homepageViewController.getUserObservableList().add(updatedUser);
-
-    }
-    public static void updateUserByEmail(User newUser, String email){
-        User updatedUser = userDao.updateByUsername(newUser, email);
-        homepageViewController.getUserObservableList().remove(updatedUser);
-        homepageViewController.getUserObservableList().add(updatedUser);
+    public static Double getAvgStructureReviewInSpecificYearAndMonth(Integer id, Integer year, Integer month){
+        Double ris= reviewDao.getAvgStructureReviewInSpecificYearAndMonth(id,year,month);
+        return Objects.requireNonNullElse(ris, 0D);
     }
 
-
-    public static Double getAverageOfReviewsStructure(Integer idStructure){
-        return reviewDao.getAverageOfReviewStructure(idStructure);
+    public static Integer getNumStructureReview(Integer idStructure){
+        return reviewDao.getNumStructureReview(idStructure);
     }
 
-    public static Integer getNumberOfUserReviewsById(Integer idUser){
-        return reviewDao.getNumberOfUserReviewsById(idUser);
+    public static void showSpecificUserView(Stage stage, User user){
+        try {
+            SpecificUserViewController specificUserViewController = new SpecificUserViewController();
+            specificUserViewController.setSelectedUser(user);
+            specificUserViewController.setAverageOfReviewUserInYear(getAvgUserReviewGroupByMonthInSpecificYear(user.getId(), LocalDate.now().getYear()));
+            specificUserViewController.start(stage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static Integer getNumberOfUserReviewsByEmail(String email){
-        return reviewDao.getNumberOfUserReviewsByEmail(email);
+    public static void showStatisticView(Stage stage, Collection<Structure> structures){
+
+
+        Map<String,Integer> numberOfReviewStructure=new HashMap<>();
+        Map<String,Double> topThreeOfYearNd = new HashMap<>();
+        Map<String,Map<Integer,Double>>  avgReviewForStructureInTheYear = new HashMap<>();
+
+
+        Map<Integer,Double>m;
+        for(Structure s :structures){
+            numberOfReviewStructure.put(s.getName(),getNumStructureReview(s.getId()));
+            topThreeOfYearNd.put(s.getName(),getAvgStructureReview(s.getId(),LocalDate.now().getYear()));
+            List<AvgRatingReviewOfStructure> avg=HomepageController.getAvgStructureReviewGroupByMonthInSpecificYear(s.getId(),LocalDate.now().getYear());
+            m=new HashMap<>();
+            for(int i=1; i<13;i++){
+                AvgRatingReviewOfStructure a=new AvgRatingReviewOfStructure();
+                a.setId(i);
+                int index;
+                if((index=avg.indexOf(a))>=0){
+                    m.put(i,avg.get(index).getAvg_rating());
+                }else {
+                    m.put(i,0D);
+                }
+            }
+            avgReviewForStructureInTheYear.put(s.getName(),m);
+        }
+
+        TreeMap<String, Double> sorted_map = new TreeMap<>( new Comparator<String>(){
+            @Override
+            public int compare(String o1, String o2) {
+                if(topThreeOfYearNd.get(o1).equals(topThreeOfYearNd.get(o2)))
+                    return 0;
+                if(topThreeOfYearNd.get(o1) > topThreeOfYearNd.get(o2)){
+                    return -1;
+                }else {
+                    return 1;
+                }
+            }
+        });
+        sorted_map.putAll(topThreeOfYearNd);
+
+        try {
+            StatisticsViewController statisticsViewController = new StatisticsViewController();
+            statisticsViewController.setNumberOfReviewStructure(numberOfReviewStructure);
+            statisticsViewController.setTopThreeOfYear(sorted_map);
+            statisticsViewController.setAvgReviewForStructureInTheYear(avgReviewForStructureInTheYear);
+            statisticsViewController.start(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-    public static Integer getNumberOfUserReviewsByUsername(String username){
-        return reviewDao.getNumberOfUserReviewsByUsername(username);
-    }
-
-    public static Double getAverageOfReviewsUserById(Integer idUser){
-        return reviewDao.getAverageOfReviewUserById(idUser);
-    }
-
-    public static Double getAverageOfReviewsUserByEmail(String email){
-        return reviewDao.getAverageOfReviewUserByEmail(email);
-    }
-
-    public static Double getAverageOfReviewsUserByUsername(String usernme){
-        return reviewDao.getAverageOfReviewUserByUsername(usernme);
-    }
-
-    public static List<AvgRatingReviewOfUser> getAverageOfReviewsUserInYear(Integer id, Integer year){
-        return reviewDao.getAverageOfReviewUserInYear(id,year);
-    }
-
-
 
     public static HomepageViewController getHomepageViewController() {
         return homepageViewController;
@@ -118,7 +174,6 @@ public class HomepageController {
     public static void setHomepageViewController(HomepageViewController homepageViewController) {
         HomepageController.homepageViewController = homepageViewController;
     }
-
 
 
 }

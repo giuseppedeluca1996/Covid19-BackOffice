@@ -1,27 +1,32 @@
 package com.covid19.dao;
 
+import com.covid19.model.AvgRatingReviewOfStructure;
 import com.covid19.model.AvgRatingReviewOfUser;
-import com.covid19.model.User;
-
+import com.covid19.model.Review;
 import java.util.List;
 import java.util.Map;
 
-public abstract class ReviewDao implements AbstractDao<User> {
+public abstract class ReviewDao implements AbstractDao<Review> {
 
 
     @Override
-    public void save(User entity) {
+    public void save(Review entity) {
 
     }
 
     @Override
-    public void update(User newEntity, Integer id) {
+    public Review update(Review newEntity, Integer id) {
+        return null;
+    }
+
+    @Override
+    public void delete(Integer id) {
 
     }
 
     @Override
-    public void delete(User entity) {
-
+    public Review getById(Integer id) {
+        return null;
     }
 
     @Override
@@ -29,26 +34,19 @@ public abstract class ReviewDao implements AbstractDao<User> {
         return null;
     }
 
-    @Override
-    public User getById(Integer id) {
-        return null;
-    }
+    public abstract Integer getNumUserReview(Integer idUser);
 
+    public abstract Double getAvgUserReview(Integer idUser);
 
-    public abstract Double getAverageOfReviewStructure(Integer idStructure);
+    public abstract List<AvgRatingReviewOfUser> getAvgUserReviewGroupByMonthInSpecificYear(Integer id, Integer year);
 
-    public abstract Integer getNumberOfUserReviewsByEmail(String email);
+    public abstract List<AvgRatingReviewOfStructure> getAvgStructureReviewGroupByMonthInSpecificYear(Integer id, Integer year);
 
-    public abstract Integer getNumberOfUserReviewsByUsername(String username);
+    public abstract Integer getNumStructureReview(Integer idStructure);
 
-    public abstract Integer getNumberOfUserReviewsById(Integer idUser);
+    public abstract Double getAvgStructureReview(Integer idStructure);
 
-    public abstract Double getAverageOfReviewUserById(Integer idUser);
+    public abstract Double getAvgStructureReview(Integer idStructure, Integer year);
 
-    public abstract Double getAverageOfReviewUserByUsername(String username);
-
-    public abstract Double getAverageOfReviewUserByEmail(String email);
-
-    public abstract List<AvgRatingReviewOfUser> getAverageOfReviewUserInYear(Integer id, Integer year);
-
+    public abstract Double getAvgStructureReviewInSpecificYearAndMonth(Integer id, Integer year, Integer month);
 }

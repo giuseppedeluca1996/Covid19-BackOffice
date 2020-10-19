@@ -28,8 +28,12 @@ public abstract class  DaoFactory {
         daoCurrentType=p.getProperty("persistence");
     }
 
+    private static String daoCurrentType;
+
     public abstract UserDao getUserDao();
+
     public abstract StructureDao getStructureDao();
+
     public abstract ReviewDao getReviewDao();
 
     public static String getDaoCurrentType() {
@@ -39,9 +43,6 @@ public abstract class  DaoFactory {
     public static void setDaoCurrentType(String daoCurrentType) {
         DaoFactory.daoCurrentType = daoCurrentType;
     }
-
-    private static String daoCurrentType;
-
 
     public static DaoFactory getDaoFactory(){
 

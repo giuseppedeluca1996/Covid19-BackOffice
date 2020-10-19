@@ -3,11 +3,15 @@ import com.covid19.controller.HomepageController;
 import com.covid19.model.AvgRatingReviewOfUser;
 import com.covid19.model.Gender;
 import com.covid19.model.User;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
@@ -29,7 +33,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class SpecificUserViewController {
+public class SpecificUserViewController extends Application {
 
     @FXML
     private TextField surnameTextFiled;
@@ -81,15 +85,21 @@ public class SpecificUserViewController {
 
 
     private User selectedUser;
+    private  List<AvgRatingReviewOfUser> averageOfReviewUserInYear;
     private Stage homepageStage;
     private ObservableList<String> monthNames = FXCollections.observableArrayList();
     private String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
 
 
+    public void setSelectedUser(User selectedUser){
+        this.selectedUser=selectedUser;
+    }
 
-    public void initData(User user){
+    public void setAverageOfReviewUserInYear(List<AvgRatingReviewOfUser> averageOfReviewUserInYear) {
+        this.averageOfReviewUserInYear = averageOfReviewUserInYear;
+    }
 
-        selectedUser = user;
+    public void initialize(){
 
         usernameTextField.setText(selectedUser.getUsername());
         nameTextField.setText(selectedUser.getName());
@@ -100,36 +110,32 @@ public class SpecificUserViewController {
         ObservableList<String> listGender = FXCollections.observableArrayList();
         listGender.addAll(Gender.FEMALE.toString(),Gender.MALE.toString());
         genderComboBox.setItems(listGender);
-        if ((selectedUser.getGender() == Gender.FEMALE)) {
-            genderComboBox.setValue(Gender.FEMALE.toString());
-        } else {
-            genderComboBox.setValue(Gender.MALE.toString());
 
-        }
+        if ((selectedUser.getGender() == Gender.FEMALE))
+            genderComboBox.setValue(Gender.FEMALE.toString());
+        else
+            genderComboBox.setValue(Gender.MALE.toString());
 
         ObservableList<String> listState = FXCollections.observableArrayList();
         listState.addAll("TRUE","FALSE");
         stateComboBox.setItems(listState);
-        if(selectedUser.getEnabled() ){
+        if(selectedUser.getEnabled() )
             stateComboBox.setValue("TRUE");
-        }else{
+        else
             stateComboBox.setValue("FALSE");
-        }
+
 
         stateComboBox.setValue(selectedUser.getEnabled().toString());
-
-
-        List<AvgRatingReviewOfUser> averageOfReviewUserInYear=HomepageController.getAverageOfReviewsUserInYear(user.getId(), LocalDate.now().getYear() );
         monthNames.addAll(Arrays.asList(months));
         xAxis.setCategories(monthNames);
         XYChart.Series<String,Double> series = new XYChart.Series<>();
         for (AvgRatingReviewOfUser a : averageOfReviewUserInYear){
-            series.getData().add(new XYChart.Data<String,Double>(monthNames.get(a.getMonth()),a.getAvgRating()));
+            series.getData().add(new XYChart.Data<>(monthNames.get(a.getMonth()-1),a.getAvg_rating()));
         }
         reviewForMontChart.getData().add(series);
 
-        starUserRating.setRating(HomepageController.getAverageOfReviewsUserByEmail(user.getEmail()));
-        numberReviewLabel.setText(HomepageController.getNumberOfUserReviewsByEmail(user.getEmail()).toString());
+        starUserRating.setRating(HomepageController.getAvgUserReview(selectedUser.getId()));
+        numberReviewLabel.setText(HomepageController.getNumUserReview(selectedUser.getId()).toString());
 
     }
 
@@ -146,13 +152,13 @@ public class SpecificUserViewController {
             Date date = Date.from(instant);
             System.out.println(localDate + "\n" + instant + "\n" + date);
             selectedUser.setDateOfBirth(date);
-            HomepageController.updateUserByUsername(selectedUser,selectedUser.getUsername());
+            HomepageController.updateUser(selectedUser,selectedUser.getId());
         }
     }
 
     public void deleteUser(ActionEvent event) {
         if(PopUpDialog.showPopUpWarning("Delete user!", "Are you sure to delete this user?")){
-            HomepageController.deleteUserByEmail(selectedUser);
+            HomepageController.deleteUser(selectedUser);
         }
     }
 
@@ -161,4 +167,18 @@ public class SpecificUserViewController {
         emailTextField.getScene().getWindow().hide();
 
     }
+
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/UserView.fxml"));
+        loader.setController(this);
+        Parent userViewParent  = loader.load();
+        Scene userViewScene = new Scene(userViewParent);
+        stage.setScene(userViewScene);
+        stage.show();
+    }
+
+
 }

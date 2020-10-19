@@ -1,18 +1,14 @@
 package com.covid19.dao.impl;
 
 import com.covid19.dao.ReviewDao;
+import com.covid19.model.AvgRatingReviewOfStructure;
 import com.covid19.model.AvgRatingReviewOfUser;
 import com.covid19.model.HttpRequest;
-import com.covid19.model.Structure;
-import com.covid19.model.User;
+import com.covid19.model.Review;
 import com.covid19.security.AuthManagerFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
@@ -39,39 +35,30 @@ public class SpringReviewDao extends ReviewDao {
     }
 
     @Override
-    public Integer getNumberOfUserReviewsByEmail(String email) {
+    public void save(Review entity) {
 
-
-        try {
-            HttpResponse<String> response= httpRequest.requestGet( "/review/numberOfUserReviews?email="+ email ,true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
-            if(response.statusCode()==200){
-                return Integer.valueOf(response.body());
-            }
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 
     @Override
-    public Integer getNumberOfUserReviewsByUsername(String username) {
-
-
-        try {
-            HttpResponse<String> response= httpRequest.requestGet( "/review/numberOfUserReviews?username="+ username ,true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
-            if(response.statusCode()==200){
-                return Integer.valueOf(response.body());
-            }
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return 0;
+    public Review update(Review newEntity, Integer id) {
+        return null;
     }
 
     @Override
-    public Integer getNumberOfUserReviewsById(Integer idUser) {
+    public void delete(Integer id) { }
+
+    @Override
+    public Review getById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> getAll(Integer page, Integer size) {
+        return null;
+    }
+
+    @Override
+    public Integer getNumUserReview (Integer idUser) {
 
         try {
             HttpResponse<String> response= httpRequest.requestGet( "/review/numberOfUserReviews?idUser="+ idUser ,true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
@@ -86,7 +73,64 @@ public class SpringReviewDao extends ReviewDao {
     }
 
     @Override
-    public Double getAverageOfReviewStructure(Integer idStructure) {
+    public  Double getAvgUserReview (Integer idUser){
+
+        try {
+            HttpResponse<String> response= httpRequest.requestGet( "/review/getAverageReviewOfUser?idUser="+ idUser ,true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
+            if(response.statusCode()==200){
+                return Double.valueOf(response.body());
+            }
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return 0D;
+
+    }
+
+    @Override
+    public List<AvgRatingReviewOfUser> getAvgUserReviewGroupByMonthInSpecificYear (Integer id, Integer year){
+        try {
+            HttpResponse<String> response= httpRequest.requestGet( "/review/averageReviewOfUser?idUser="+ id + "&year=" + year ,true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
+
+            if(response.statusCode()==200){
+                return gson.fromJson(response.body(), new TypeToken<List<AvgRatingReviewOfUser>>() {}.getType());
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<AvgRatingReviewOfStructure> getAvgStructureReviewGroupByMonthInSpecificYear (Integer id, Integer year){
+        try {
+            HttpResponse<String> response= httpRequest.requestGet( "/review/averageReviewOStructure?idStructure="+ id + "&year=" + year ,true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
+
+            if(response.statusCode()==200){
+                return gson.fromJson(response.body(), new TypeToken<List<AvgRatingReviewOfStructure>>() {}.getType());
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public  Integer getNumStructureReview (Integer idStructure){
+        try {
+            HttpResponse<String> response= httpRequest.requestGet( "/review/getTotalNumberOfReviewOfStructure?idStructure="+ idStructure,true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
+            if(response.statusCode()==200){
+                return Integer.valueOf(response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public Double getAvgStructureReview (Integer idStructure) {
         try {
             HttpResponse<String> response= httpRequest.requestGet( "/review/public/getAverageRatingOfStructure?idStructure="+ idStructure ,false, null);
             if(response.statusCode()==200){
@@ -100,35 +144,9 @@ public class SpringReviewDao extends ReviewDao {
     }
 
     @Override
-    public void save(User entity) {
-        super.save(entity);
-    }
-
-    @Override
-    public void update(User newEntity, Integer id) {
-        super.update(newEntity, id);
-    }
-
-    @Override
-    public void delete(User entity) {
-        super.delete(entity);
-    }
-
-    @Override
-    public Map<String, Object> getAll(Integer page, Integer size) {
-        return super.getAll(page, size);
-    }
-
-    @Override
-    public User getById(Integer id) {
-        return super.getById(id);
-    }
-
-    @Override
-    public  Double getAverageOfReviewUserById(Integer idUser){
-
+    public Double getAvgStructureReview (Integer idStructure, Integer year) {
         try {
-            HttpResponse<String> response= httpRequest.requestGet( "/review/getAverageRatingOfUser?idUser="+ idUser ,true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
+            HttpResponse<String> response= httpRequest.requestGet( "/review/public/getAverageRatingOfStructure?idStructure="+ idStructure + "&year=" + year ,false, null);
             if(response.statusCode()==200){
                 return Double.valueOf(response.body());
             }
@@ -137,52 +155,21 @@ public class SpringReviewDao extends ReviewDao {
             e.printStackTrace();
         }
         return 0D;
-
     }
 
     @Override
-    public  Double getAverageOfReviewUserByUsername(String username){
-
+    public Double getAvgStructureReviewInSpecificYearAndMonth (Integer id, Integer year, Integer month){
         try {
-            HttpResponse<String> response= httpRequest.requestGet( "/review/getAverageRatingOfUser?username="+ username ,true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
+            HttpResponse<String> response= httpRequest.requestGet( "/review/public/averageReviewOfStructureInYearAndMonth?id="+ id + "&year=" + year + "&month=" + month,false, null);
             if(response.statusCode()==200){
-                return Double.valueOf(response.body());
-            }
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return 0D;
-
-    }
-
-
-    @Override
-    public  Double getAverageOfReviewUserByEmail(String email){
-
-        try {
-            HttpResponse<String> response= httpRequest.requestGet( "/review/getAverageRatingOfUser?email="+ email ,true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
-            if(response.statusCode()==200){
+                if(response.body().isEmpty())
+                    return 0D;
                 return Double.valueOf(response.body());
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         return 0D;
-    }
-
-    @Override
-    public List<AvgRatingReviewOfUser> getAverageOfReviewUserInYear(Integer id, Integer year){
-        try {
-            HttpResponse<String> response= httpRequest.requestGet( "/review/averageReviewOfUser?id="+ id + "&year=" + year ,true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
-
-            if(response.statusCode()==200){
-                return gson.fromJson(response.body(), new TypeToken<List<AvgRatingReviewOfUser>>() {}.getType());
-            }
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
 
