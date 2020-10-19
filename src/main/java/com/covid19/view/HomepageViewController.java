@@ -141,7 +141,9 @@ public class HomepageViewController extends Application {
             userObservableList.clear();
 
             Map<String, Object> map = HomepageController.getAllUser(indexUserPage, userPageSize);
-            users.addAll((Collection<User>) (map.get("collectionItems")));
+            if(((Collection<User>) (map.get("collectionItems")) != null)) {
+                users.addAll((Collection<User>) (map.get("collectionItems")));
+            }
             numberOfTotalUser = (Integer) map.get("numberOfTotalItems");
             numberOfViewUser = (Integer) map.get("sizeCollectionItems");
             nextQueryUserIsValid=false;
@@ -200,6 +202,7 @@ public class HomepageViewController extends Application {
                 indexStructurePage = 0;
                 numberOfViewStructure = 0;
                 structureObservableList.clear();
+                structures.clear();
                 Map<String, Object> map;
                 if(searchTextField.getText().isEmpty()){
                     map = HomepageController.getAllHotel(indexStructurePage, structurePageSize);
@@ -208,7 +211,9 @@ public class HomepageViewController extends Application {
                     map = HomepageController.getAllHotelByText(indexStructurePage, structurePageSize, searchTextField.getText());
                     nextQueryStructureIsValid=true;
                 }
-                structures.addAll((Collection<Structure>) (map.get("collectionItems")));
+                if(((Collection<Structure>) (map.get("collectionItems")) != null)) {
+                    structures.addAll((Collection<Structure>) (map.get("collectionItems")));
+                }
                 numberOfTotalStructure=(Integer)map.get("numberOfTotalItems");
                 numberOfViewStructure=(Integer)map.get("sizeCollectionItems");
                 if(structures !=null) {
@@ -230,6 +235,7 @@ public class HomepageViewController extends Application {
             indexStructurePage = 0;
             numberOfViewStructure = 0;
             structureObservableList.clear();
+            structures.clear();
             Map<String, Object> map;
             if(searchTextField.getText().isEmpty()){
                 map = HomepageController.getAllRestaurant(indexStructurePage, structurePageSize);
@@ -238,7 +244,9 @@ public class HomepageViewController extends Application {
                 map = HomepageController.getAllRestaurantByText(indexStructurePage, structurePageSize, searchTextField.getText());
                 nextQueryStructureIsValid=true;
             }
-            structures.addAll((Collection<Structure>) (map.get("collectionItems")));
+            if(((Collection<Structure>) (map.get("collectionItems")) != null)) {
+                structures.addAll((Collection<Structure>) (map.get("collectionItems")));
+            }
             numberOfTotalStructure=(Integer)map.get("numberOfTotalItems");
             numberOfViewStructure=(Integer)map.get("sizeCollectionItems");
             if(structures !=null) {
@@ -260,6 +268,7 @@ public class HomepageViewController extends Application {
             indexStructurePage = 0;
             numberOfViewStructure = 0;
             structureObservableList.clear();
+            structures.clear();
             Map<String, Object> map;
             if(searchTextField.getText().isEmpty()){
                 map = HomepageController.getAllAttraction(indexStructurePage, structurePageSize);
@@ -268,7 +277,9 @@ public class HomepageViewController extends Application {
                 map = HomepageController.getAllAttractionByText(indexStructurePage, structurePageSize, searchTextField.getText());
                 nextQueryStructureIsValid=true;
             }
-            structures.addAll((Collection<Structure>) (map.get("collectionItems")));
+            if(((Collection<Structure>) (map.get("collectionItems")) != null)) {
+                structures.addAll((Collection<Structure>) (map.get("collectionItems")));
+            }
             numberOfTotalStructure=(Integer)map.get("numberOfTotalItems");
             numberOfViewStructure=(Integer)map.get("sizeCollectionItems");
             if(structures !=null){
@@ -283,6 +294,8 @@ public class HomepageViewController extends Application {
         }
     }
 
+
+
     public void search(KeyEvent keyEvent) {
 
         if(keyEvent.getCode() == KeyCode.ENTER){
@@ -291,7 +304,7 @@ public class HomepageViewController extends Application {
                 indexUserPage=0;
                 numberOfViewUser=0;
                 userObservableList.clear();
-
+                users.clear();
                 Map<String, Object> map;
                 if(searchTextField.getText().isEmpty()){
                     map = HomepageController.getAllUser(indexUserPage, userPageSize);
@@ -300,7 +313,9 @@ public class HomepageViewController extends Application {
                     map = HomepageController.getAllUserByText(indexUserPage, userPageSize,searchTextField.getText());
                     nextQueryUserIsValid=true;
                 }
-                users.addAll((Collection<User>) (map.get("collectionItems")));
+                if(((Collection<User>) (map.get("collectionItems")) != null)) {
+                    users.addAll((Collection<User>) (map.get("collectionItems")));
+                }
                 numberOfTotalUser = (Integer) map.get("numberOfTotalItems");
                 numberOfViewUser = (Integer) map.get("sizeCollectionItems");
 
