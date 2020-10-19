@@ -459,56 +459,21 @@ public class HomepageViewController extends Application {
 
     public void openStatisticsHotel(ActionEvent event) {
 
-        if(hotelTab.isSelected()){
-            if( numberOfViewStructure < numberOfTotalStructure){
-                Map<String, Object> map;
-                if(!nextQueryStructureIsValid){
-                    map = HomepageController.getAllHotel(++indexStructurePage, structurePageSize);
-                }else {
-                    map = HomepageController.getAllHotelByText(++indexStructurePage, structurePageSize,searchTextField.getText());
-                }
-                structures.addAll((Collection<Structure>) (map.get("collectionItems")));
-                for(Structure s : structures){
-                    s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
-                }
-                numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
-                if(!structures.isEmpty())
-                    structureObservableList.addAll(structures);
+        if( numberOfViewStructure < numberOfTotalStructure){
+            Map<String, Object> map;
+            if(!nextQueryStructureIsValid){
+                map = HomepageController.getAllHotel(++indexStructurePage, structurePageSize);
+            }else {
+                map = HomepageController.getAllHotelByText(++indexStructurePage, structurePageSize,searchTextField.getText());
             }
-        }else if(restaurantTab.isSelected()){
-            if( numberOfViewStructure < numberOfTotalStructure){
-                Map<String, Object> map;
-                if(!nextQueryStructureIsValid){
-                    map = HomepageController.getAllRestaurant(++indexStructurePage, structurePageSize);
-                }else {
-                    map = HomepageController.getAllRestaurantByText(++indexStructurePage, structurePageSize,searchTextField.getText());
-                }
-                structures.addAll((Collection<Structure>) (map.get("collectionItems")));
-                for(Structure s : structures){
-                    s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
-                }
-                numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
-                if(!structures.isEmpty())
-                    structureObservableList.addAll(structures);
+            structures.addAll((Collection<Structure>) (map.get("collectionItems")));
+            for(Structure s : structures){
+                s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
             }
-        }else {
-            if( numberOfViewStructure < numberOfTotalStructure){
-                Map<String, Object> map;
-                if(!nextQueryStructureIsValid){
-                    map = HomepageController.getAllAttraction(++indexStructurePage, structurePageSize);
-                }else {
-                    map = HomepageController.getAllAttractionByText(++indexStructurePage, structurePageSize,searchTextField.getText());
-                }
-                structures.addAll( (Collection<Structure>) (map.get("collectionItems")));
-                for(Structure s : structures){
-                    s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
-                }
-                numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
-                if(!structures.isEmpty())
-                    structureObservableList.addAll(structures);
-            }
+            numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
+            if(!structures.isEmpty())
+                structureObservableList.addAll(structures);
         }
-
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(searchTextField.getScene().getWindow());
@@ -516,6 +481,21 @@ public class HomepageViewController extends Application {
     }
 
     public void openStatisticsAttraction(ActionEvent event) {
+        if( numberOfViewStructure < numberOfTotalStructure){
+            Map<String, Object> map;
+            if(!nextQueryStructureIsValid){
+                map = HomepageController.getAllAttraction(++indexStructurePage, structurePageSize);
+            }else {
+                map = HomepageController.getAllAttractionByText(++indexStructurePage, structurePageSize,searchTextField.getText());
+            }
+            structures.addAll((Collection<Structure>) (map.get("collectionItems")));
+            for(Structure s : structures){
+                s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
+            }
+            numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
+            if(!structures.isEmpty())
+                structureObservableList.addAll(structures);
+        }
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(searchTextField.getScene().getWindow());
@@ -523,6 +503,21 @@ public class HomepageViewController extends Application {
     }
 
     public void openStatisticsRestaurant(ActionEvent event) {
+        if( numberOfViewStructure < numberOfTotalStructure){
+            Map<String, Object> map;
+            if(!nextQueryStructureIsValid){
+                map = HomepageController.getAllRestaurant(++indexStructurePage, structurePageSize);
+            }else {
+                map = HomepageController.getAllRestaurantByText(++indexStructurePage, structurePageSize,searchTextField.getText());
+            }
+            structures.addAll((Collection<Structure>) (map.get("collectionItems")));
+            for(Structure s : structures){
+                s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
+            }
+            numberOfViewStructure=numberOfViewStructure+(Integer) map.get("sizeCollectionItems");
+            if(!structures.isEmpty())
+                structureObservableList.addAll(structures);
+        }
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(searchTextField.getScene().getWindow());
