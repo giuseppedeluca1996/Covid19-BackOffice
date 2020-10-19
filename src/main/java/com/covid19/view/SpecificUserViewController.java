@@ -16,6 +16,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -177,6 +178,7 @@ public class SpecificUserViewController extends Application {
         Parent userViewParent  = loader.load();
         Scene userViewScene = new Scene(userViewParent);
         stage.setScene(userViewScene);
+        stage.getIcons().add(new Image("/download.jpg"));
         stage.show();
     }
 

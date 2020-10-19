@@ -7,15 +7,15 @@ import com.covid19.model.AvgRatingReviewOfStructure;
 import com.covid19.model.AvgRatingReviewOfUser;
 import com.covid19.model.Structure;
 import com.covid19.model.User;
+import com.covid19.security.AuthManagerFactory;
 import com.covid19.view.HomepageViewController;
+import com.covid19.view.SignInViewController;
 import com.covid19.view.SpecificUserViewController;
 import com.covid19.view.StatisticsViewController;
-import com.sun.javafx.image.IntPixelGetter;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class HomepageController {
 
@@ -175,5 +175,16 @@ public class HomepageController {
         HomepageController.homepageViewController = homepageViewController;
     }
 
+    public static void signOut(){
+        Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().logOut();
+        Stage stage = new Stage();
+        try {
+            new SignInViewController().start(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
 }

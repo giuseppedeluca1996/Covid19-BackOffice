@@ -21,14 +21,13 @@
         <menus>
           <Menu mnemonicParsing="false" text="Account">
             <items>
-              <MenuItem mnemonicParsing="false" text="Signout" />
-                  <MenuItem mnemonicParsing="false" text="Settings" />
-                  <MenuItem mnemonicParsing="false" text="Exit" />
+              <MenuItem fx:id="signout" mnemonicParsing="false" onAction="#signoutPressed" text="Signout" />
+                  <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitPressed" text="Exit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="about" mnemonicParsing="false" text="About" onAction="#aboutPressed" />
             </items>
           </Menu>
         </menus>
@@ -48,7 +47,7 @@
    <center>
       <AnchorPane prefHeight="690.0" prefWidth="1170.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="userList" layoutX="4.0" layoutY="34.0" onMouseClicked="#openSpecificUser"  onScroll="#onScrollListUserView" prefHeight="650.0" prefWidth="1170.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+            <ListView fx:id="userList" layoutX="4.0" layoutY="34.0" onMouseClicked="#openSpecificUser" onScroll="#onScrollListUserView" prefHeight="650.0" prefWidth="1170.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
             <TextField fx:id="searchTextField" onKeyReleased="#search" prefHeight="30.0" prefWidth="1170.0" promptText="Search username or name structure" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             <TabPane fx:id="structureTabPane" prefHeight="660.0" prefWidth="1170.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
               <tabs>
@@ -56,11 +55,11 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="660.0" prefWidth="1170.0" style="-fx-background-color: #ffffff;">
                            <children>
-                              <ListView fx:id="hotelList" onScroll="#onScrollListHotelView" layoutX="10.0" layoutY="10.0" prefHeight="630.0" prefWidth="1170.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <ListView fx:id="hotelList" layoutX="10.0" layoutY="10.0" onScroll="#onScrollListHotelView" prefHeight="630.0" prefWidth="1170.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets></ListView>
-                              <Button fx:id="generateStatisticsHotelButton" onAction="#openStatisticsHotel" layoutX="496.0" layoutY="586.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="138.0" style="-fx-background-color: #1589ff;" text="Generate Statistics" textFill="WHITE" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="496.0">
+                              <Button fx:id="generateStatisticsHotelButton" layoutX="496.0" layoutY="586.0" mnemonicParsing="false" onAction="#openStatisticsHotel" prefHeight="30.0" prefWidth="138.0" style="-fx-background-color: #1589ff;" text="Generate Statistics" textFill="WHITE" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="496.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Button>
@@ -73,7 +72,7 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="660.0" prefWidth="1170.0">
                            <children>
                               <ListView fx:id="restaurantList" onScroll="#onScrollListRestaurantView" prefHeight="630.0" prefWidth="1170.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                              <Button fx:id="generateStatisticsRestaurantButton" onAction="#openStatisticsRestaurant" layoutX="496.0" layoutY="586.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="184.0" style="-fx-background-color: #1589ff;" text="Generate Statistics" textFill="WHITE" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="496.0">
+                              <Button fx:id="generateStatisticsRestaurantButton" layoutX="496.0" layoutY="586.0" mnemonicParsing="false" onAction="#openStatisticsRestaurant" prefHeight="30.0" prefWidth="184.0" style="-fx-background-color: #1589ff;" text="Generate Statistics" textFill="WHITE" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="496.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Button>
@@ -86,7 +85,7 @@
                       <AnchorPane prefHeight="660.0" prefWidth="1170.0" style="-fx-background-color: #ffffff;">
                            <children>
                               <ListView fx:id="attractionList" onScroll="#onScrollListAttractionView" prefHeight="630.0" prefWidth="1170.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                              <Button fx:id="generateStatisticAttractionButton"  onAction="#openStatisticsAttraction" layoutX="496.0" layoutY="586.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="184.0" style="-fx-background-color: #1589ff;" text="Generate Statistics" textFill="WHITE" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="496.0">
+                              <Button fx:id="generateStatisticAttractionButton" layoutX="496.0" layoutY="586.0" mnemonicParsing="false" onAction="#openStatisticsAttraction" prefHeight="30.0" prefWidth="184.0" style="-fx-background-color: #1589ff;" text="Generate Statistics" textFill="WHITE" AnchorPane.leftAnchor="496.0" AnchorPane.rightAnchor="496.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Button>

@@ -14,11 +14,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -126,6 +136,7 @@ public class HomepageViewController extends Application {
         stage.setTitle("User Homepage");
         stage.setScene(new Scene(root, 1280,720));
         stage.setResizable(false);
+        stage.getIcons().add(new Image("/download.jpg"));
         stage.show();
     }
 
@@ -516,5 +527,24 @@ public class HomepageViewController extends Application {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(searchTextField.getScene().getWindow());
         HomepageController.showStatisticView(stage,structures );
+    }
+
+    public void exitPressed(ActionEvent actionEvent) {
+        searchTextField.getScene().getWindow().hide();
+    }
+
+    public void signoutPressed(ActionEvent actionEvent) {
+        HomepageController.signOut();
+        searchTextField.getScene().getWindow().hide();
+
+    }
+
+    public void aboutPressed(ActionEvent actionEvent) {
+        Dialog<String> dialog = new Dialog<String>();
+        dialog.setTitle("Dialog");
+        ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        dialog.setContentText("Pannello Back Office Applicazione CoVid19\nCreato da Oreste Apa, Giuseppe De Luca, Mariamichela Graziano\n\nProgetto di Ingegneria del software 2019/2020");
+        dialog.getDialogPane().getButtonTypes().add(type);
+        dialog.showAndWait();
     }
 }

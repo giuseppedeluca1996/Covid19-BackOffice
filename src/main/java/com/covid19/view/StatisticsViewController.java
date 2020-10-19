@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.*;
@@ -51,7 +52,6 @@ public class StatisticsViewController extends Application {
             series.getData().add(new XYChart.Data<>(s,d));
             j++;
         }
-       // topThreeOfYearBarChart.set
         topThreeOfYearBarChart.getData().add(series);
 
 
@@ -83,6 +83,7 @@ public class StatisticsViewController extends Application {
         Parent statisticViewParent  = loader.load();
         Scene statisticViewScene = new Scene(statisticViewParent);
         stage.setScene(statisticViewScene);
+        stage.getIcons().add(new Image("/download.jpg"));
         stage.show();
         initData();
     }
