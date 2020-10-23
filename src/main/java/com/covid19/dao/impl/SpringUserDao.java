@@ -61,7 +61,7 @@ public class SpringUserDao extends UserDao {
     @Override
     public void delete(Integer id) {
         try {
-            HttpResponse<String> response= httpRequest.requestDelete("/user/deleteUser?userid=" + id, true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
+            HttpResponse<String> response= httpRequest.requestDelete("/user/deleteUser/" + id, true, Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager().getAuthenticationString());
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

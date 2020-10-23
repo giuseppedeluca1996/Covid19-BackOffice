@@ -159,14 +159,13 @@ public class HomepageViewController extends Application {
             numberOfViewUser = (Integer) map.get("sizeCollectionItems");
             nextQueryUserIsValid=false;
 
-            if(users != null) {
+            if(!users.isEmpty()) {
                 userObservableList.addAll(users);
                 searchIsEmptyLabel.setVisible(false);
-            }else
+            } else{
                 searchIsEmptyLabel.setVisible(true);
+            }
         }
-
-
     }
 
     public void structurePress(ActionEvent actionEvent) {
@@ -227,14 +226,17 @@ public class HomepageViewController extends Application {
                 }
                 numberOfTotalStructure=(Integer)map.get("numberOfTotalItems");
                 numberOfViewStructure=(Integer)map.get("sizeCollectionItems");
-                if(structures !=null) {
+                if(!structures.isEmpty()) {
                     for(Structure s : structures){
                         s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
                     }
                     structureObservableList.addAll(structures);
                     searchIsEmptyLabel.setVisible(false);
-                } else
+                    generateStatisticsHotelButton.setDisable(false);
+                }  else{
                     searchIsEmptyLabel.setVisible(true);
+                    generateStatisticsHotelButton.setDisable(true);
+                }
             }
         }
     }
@@ -260,17 +262,19 @@ public class HomepageViewController extends Application {
             }
             numberOfTotalStructure=(Integer)map.get("numberOfTotalItems");
             numberOfViewStructure=(Integer)map.get("sizeCollectionItems");
-            if(structures !=null) {
+            if(!structures.isEmpty()) {
                 for(Structure s : structures){
                     s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
                 }
                 structureObservableList.addAll(structures);
                 searchIsEmptyLabel.setVisible(false);
-            } else
+                generateStatisticsRestaurantButton.setDisable(false);
+            } else{
                 searchIsEmptyLabel.setVisible(true);
+                generateStatisticsRestaurantButton.setDisable(true);
+
+            }
         }
-
-
     }
 
     public void attractionTabPressed(Event event) {
@@ -293,15 +297,18 @@ public class HomepageViewController extends Application {
             }
             numberOfTotalStructure=(Integer)map.get("numberOfTotalItems");
             numberOfViewStructure=(Integer)map.get("sizeCollectionItems");
-            if(structures !=null){
+            if(!structures.isEmpty()){
                 for(Structure s : structures){
                     s.setAverageRating(HomepageController.getAvgStructureReview(s.getId()));
                 }
                 structureObservableList.addAll(structures);
                 searchIsEmptyLabel.setVisible(false);
-            }
-            else
+                generateStatisticAttractionButton.setDisable(false);
+            } else{
                 searchIsEmptyLabel.setVisible(true);
+                generateStatisticAttractionButton.setDisable(false);
+
+            }
         }
     }
 
