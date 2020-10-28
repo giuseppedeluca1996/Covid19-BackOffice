@@ -63,4 +63,24 @@ public class Structure {
     @Expose(serialize = false, deserialize = false)
     private Double averageRating;
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Structure structure = (Structure) o;
+
+        if (name != null ? !name.equals(structure.name) : structure.name != null) return false;
+        if (latitude != null ? !latitude.equals(structure.latitude) : structure.latitude != null) return false;
+        return longitude != null ? longitude.equals(structure.longitude) : structure.longitude == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
+        result = 31 * result + (longitude != null ? longitude.hashCode() : 0);
+        return result;
+    }
 }

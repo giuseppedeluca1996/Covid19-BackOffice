@@ -13,9 +13,12 @@ import java.util.regex.Pattern;
 
 public  class SignInController {
 
-    public static boolean signInPress(String usernameOrEmail , String password ) {
+    public static boolean signInPress(String usernameOrEmail , String password ) throws UnauthorizedException{
+        if(usernameOrEmail==null || password==null){
+            return false;
+         }
 
-         if (usernameOrEmail.isBlank() || password.isBlank()) {
+         if ((usernameOrEmail.isBlank() ||  password.isBlank()) ) {
              PopUpDialog.showPopUpError("Some fields are empty!", "Enter the credentials again");
              return false;
          }
@@ -27,26 +30,15 @@ public  class SignInController {
          AuthManager authManager = Objects.requireNonNull(AuthManagerFactory.getAuthManagerFactory()).getAuthManager();
 
          if (matcher.matches()) {
-             try {
-                 if (!authManager.loginWithEmail(usernameOrEmail, password)) {
-                     PopUpDialog.showPopUpError("Invalid credentials!", "Email o password are incorrect");
-                     return false;
-                 }
-             }catch ( UnauthorizedException e){
-                 PopUpDialog.showPopUpError("Admin Permissions Needed!", "You do not have the necessary permissions");
+             if (!authManager.loginWithEmail(usernameOrEmail, password)) {
+                 PopUpDialog.showPopUpError("Invalid credentials!", "Email o password are incorrect");
                  return false;
              }
          } else {
-             try {
-                 if (!authManager.loginWithUsername(usernameOrEmail, password)) {
-                     PopUpDialog.showPopUpError("Invalid credentials!", "Username o password are incorrect");
-                     return false;
-                 }
-             }catch ( UnauthorizedException e){
-                 PopUpDialog.showPopUpError("Admin Permissions Needed!", "You do not have the necessary permissions");
+             if (!authManager.loginWithUsername(usernameOrEmail, password)) {
+                 PopUpDialog.showPopUpError("Invalid credentials!", "Username o password are incorrect");
                  return false;
              }
-
          }
         showHomepage();
         return true;

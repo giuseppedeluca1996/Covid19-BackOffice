@@ -178,7 +178,7 @@ public class SpecificUserViewController extends Application {
         Parent userViewParent  = loader.load();
         Scene userViewScene = new Scene(userViewParent);
         stage.setScene(userViewScene);
-        stage.getIcons().add(new Image("/download.jpg"));
+        stage.getIcons().add(new Image("/icon.jpg"));
         stage.show();
     }
 

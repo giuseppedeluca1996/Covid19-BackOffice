@@ -1,6 +1,7 @@
 package com.covid19.view;
 
 import com.covid19.controller.SignInController;
+import com.covid19.model.UnauthorizedException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,7 +33,7 @@ public class SignInViewController extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/SignInScreen.fxml"));
         primaryStage.setTitle("CoVid19");
-        primaryStage.getIcons().add(new Image("/download.jpg"));
+        primaryStage.getIcons().add(new Image("/logo.png"));
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -40,13 +41,17 @@ public class SignInViewController extends Application {
 
     public void signInPress(ActionEvent actionEvent) {
         signInButton.setDisable(true);
-        if (SignInController.signInPress(usernameOrEmailTextField.getText(), passwordTextField.getText())){
-            signInButton.getScene().getWindow().hide();
-        }else {
-            passwordTextField.clear();
-            usernameOrEmailTextField.clear();
-            signInButton.setDisable(false);
-        }
 
+        try {
+            if (SignInController.signInPress(usernameOrEmailTextField.getText(), passwordTextField.getText())){
+                signInButton.getScene().getWindow().hide();
+            }else {
+                passwordTextField.clear();
+                usernameOrEmailTextField.clear();
+                signInButton.setDisable(false);
+            }
+        }catch (UnauthorizedException ue){
+            PopUpDialog.showPopUpError("Access Denied!", "You don't have permission");
+        }
     }
 }
