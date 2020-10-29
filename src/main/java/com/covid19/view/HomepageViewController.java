@@ -125,7 +125,7 @@ public class HomepageViewController extends Application {
         stage.setTitle("User Homepage");
         stage.setScene(new Scene(root, 1280,720));
         stage.setResizable(false);
-        stage.getIcons().add(new Image("/icon.jpg"));
+        stage.getIcons().add(new Image("/logo.png"));
         stage.show();
     }
 

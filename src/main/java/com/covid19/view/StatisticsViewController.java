@@ -83,7 +83,7 @@ public class StatisticsViewController extends Application {
         Parent statisticViewParent  = loader.load();
         Scene statisticViewScene = new Scene(statisticViewParent);
         stage.setScene(statisticViewScene);
-        stage.getIcons().add(new Image("/icon.jpg"));
+        stage.getIcons().add(new Image("/logo.png"));
         stage.show();
         initData();
     }

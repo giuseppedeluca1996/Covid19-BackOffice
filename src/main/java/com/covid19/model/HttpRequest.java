@@ -32,7 +32,6 @@ public class HttpRequest {
             e.printStackTrace();
         }
 
-        baseUrl=p.getProperty("persistence.url");
         serverBaseUrl=p.getProperty("server.url");
         userAgent="CoVid19_BackOffice";
         httpClient = HttpClient.newBuilder()
@@ -47,7 +46,7 @@ public class HttpRequest {
         if(authorization){
              request = java.net.http.HttpRequest.newBuilder()
                     .POST(java.net.http.HttpRequest.BodyPublishers.ofString(body))
-                    .uri(URI.create(serverBaseUrl+baseUrl+endPoint))
+                    .uri(URI.create(serverBaseUrl+endPoint))
                     .setHeader("User-Agent", userAgent)
                     .header("Content-Type", "application/json")
                     .header("Authorization", "Bearer "+jwtToken)
@@ -55,7 +54,7 @@ public class HttpRequest {
         }else {
             request = java.net.http.HttpRequest.newBuilder()
                     .POST(java.net.http.HttpRequest.BodyPublishers.ofString(body))
-                    .uri(URI.create(serverBaseUrl+baseUrl+endPoint))
+                    .uri(URI.create(serverBaseUrl+endPoint))
                     .setHeader("User-Agent", userAgent)
                     .header("Content-Type", "application/json")
                     .build();
@@ -68,7 +67,7 @@ public class HttpRequest {
         if(authorization){
             request = java.net.http.HttpRequest.newBuilder()
                     .GET()
-                    .uri(URI.create(serverBaseUrl+baseUrl+endPoint))
+                    .uri(URI.create(serverBaseUrl+endPoint))
                     .setHeader("User-Agent", userAgent)
                     .header("Content-Type", "application/json")
                     .header("Authorization", "Bearer "+jwtToken)
@@ -76,7 +75,7 @@ public class HttpRequest {
         }else {
             request = java.net.http.HttpRequest.newBuilder()
                     .GET()
-                    .uri(URI.create(serverBaseUrl+baseUrl+endPoint))
+                    .uri(URI.create(serverBaseUrl+endPoint))
                     .setHeader("User-Agent", userAgent)
                     .header("Content-Type", "application/json")
                     .build();
@@ -91,7 +90,7 @@ public class HttpRequest {
         if(authorization){
             request = java.net.http.HttpRequest.newBuilder()
                     .DELETE()
-                    .uri(URI.create(serverBaseUrl+baseUrl+endPoint))
+                    .uri(URI.create(serverBaseUrl+endPoint))
                     .setHeader("User-Agent", userAgent)
                     .header("Content-Type", "application/json")
                     .header("Authorization", "Bearer "+jwtToken)
@@ -99,7 +98,7 @@ public class HttpRequest {
         }else {
             request = java.net.http.HttpRequest.newBuilder()
                     .DELETE()
-                    .uri(URI.create(serverBaseUrl+baseUrl+endPoint))
+                    .uri(URI.create(serverBaseUrl+endPoint))
                     .setHeader("User-Agent", userAgent)
                     .header("Content-Type", "application/json")
                     .build();
@@ -114,7 +113,7 @@ public class HttpRequest {
         if(authorization){
             request = java.net.http.HttpRequest.newBuilder()
                     .PUT(java.net.http.HttpRequest.BodyPublishers.ofString(body))
-                    .uri(URI.create(serverBaseUrl+baseUrl+endPoint))
+                    .uri(URI.create(serverBaseUrl+endPoint))
                     .setHeader("User-Agent", userAgent)
                     .header("Content-Type", "application/json")
                     .header("Authorization", "Bearer "+jwtToken)
@@ -122,7 +121,7 @@ public class HttpRequest {
         }else {
             request = java.net.http.HttpRequest.newBuilder()
                     .DELETE()
-                    .uri(URI.create(serverBaseUrl+baseUrl+endPoint))
+                    .uri(URI.create(serverBaseUrl+endPoint))
                     .setHeader("User-Agent", userAgent)
                     .header("Content-Type", "application/json")
                     .build();
