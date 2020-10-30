@@ -3,6 +3,8 @@ package com.covid19.view;
 import com.covid19.controller.HomepageController;
 import com.covid19.model.Structure;
 import com.covid19.model.User;
+import com.covid19.view.cell.StructureCellViewController;
+import com.covid19.view.cell.UserCellViewController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

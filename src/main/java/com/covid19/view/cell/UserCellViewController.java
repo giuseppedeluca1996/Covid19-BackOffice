@@ -1,7 +1,8 @@
-package com.covid19.view;
+package com.covid19.view.cell;
 
 import com.covid19.controller.HomepageController;
 import com.covid19.model.User;
+import com.covid19.view.PopUpDialog;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;

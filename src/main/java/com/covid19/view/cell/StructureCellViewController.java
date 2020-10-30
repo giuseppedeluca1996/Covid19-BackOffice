@@ -1,4 +1,4 @@
-package com.covid19.view;
+package com.covid19.view.cell;
 
 import javafx.fxml.FXML;
 import com.covid19.model.Structure;
